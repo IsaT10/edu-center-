@@ -2,13 +2,17 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        hero: "url('/src/Asset/hero-1.jpg')",
+      },
+    },
   },
   daisyui: {
     themes: [
       {
         mytheme: {
-          primary: "#f94a93",
+          primary: "#20AD96",
 
           secondary: "#630cce",
 
