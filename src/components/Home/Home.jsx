@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -18,7 +19,7 @@ const Home = () => {
               Our courses
             </button>
             <button className="btn bg-transparent border-4 text-white text-lg font-bold hover:bg-white hover:border-white hover:text-primary border-white ">
-              Sign up
+              <Link to="/signup"> Sign up</Link>
             </button>
           </div>
         </div>
