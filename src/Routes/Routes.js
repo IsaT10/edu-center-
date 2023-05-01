@@ -1,6 +1,8 @@
 import ErrorPage from "../components/ErrorPage/ErrorPage";
 import Login from "../components/Login/Login";
 import SignUp from "../components/SignUp/SignUp";
+import TermsAndCondition from "../components/TermsAndCondition/TermsAndCondition";
+import UserProfile from "../components/UserProfile/UserProfile";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Main } = require("../layout/Main");
@@ -21,17 +23,15 @@ export const router = createBrowserRouter([
       { path: "/courses", element: <Courses /> },
       { path: "/blog", element: <Blog /> },
       { path: "/faq", element: <FAQ /> },
-      {
-        path: "/signup",
-        element: <SignUp />,
-      },
-      {
-        path: "/login",
-        element: <Login />,
-      },
+      { path: "/signup", element: <SignUp /> },
+      { path: "/login", element: <Login /> },
+      { path: "/userprofile", element: <UserProfile /> },
     ],
   },
-
+  {
+    path: "/termsandconditions",
+    element: <TermsAndCondition />,
+  },
   {
     element: <Footer />,
   },

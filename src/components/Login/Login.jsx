@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import { FaGoogle, FaGithub } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [userInfo, setUserInfo] = useState({
@@ -13,7 +14,7 @@ const Login = () => {
     password: "",
   });
 
-  const { logIn, googleSignIn } = useContext(AuthContext);
+  const { logIn, googleSignIn, resetPassword } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -72,6 +73,23 @@ const Login = () => {
     }
   };
 
+  const handleEmailBlur = (e) => {
+    const email = e.target.value;
+    setUserInfo({ ...userInfo, email: email });
+  };
+
+  const handleResetPassword = () => {
+    resetPassword(userInfo.email)
+      .then(() => {
+        toast.success("Password reset email sent");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
+
   return (
     <div className="">
       <form
@@ -91,6 +109,7 @@ const Login = () => {
           placeholder="E-mail address"
           name="emali"
           onChange={handleEmailChange}
+          onBlur={handleEmailBlur}
           required
         />
         <p className="text-red-600 text-sm font-semibold mt-1 ml-1">
@@ -113,6 +132,9 @@ const Login = () => {
         <p className="text-red-600 text-sm font-semibold mt-1 ml-1">
           {errors.password}
         </p>
+        <button onClick={handleResetPassword} className="text-primary mr-48">
+          Forget password
+        </button>
 
         <button className="bg-primary px-8 py-2 text-white uppercase font-semibold rounded-sm mt-8 mx-auto w-40  hover:text-primary hover:bg-transparent border-2  border-primary hover:border-2 hover:border-primary duration-200">
           Login

@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const [userInfo, setUserInfo] = useState({
@@ -16,8 +17,10 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
   });
+  const [checked, setChecked] = useState(false);
 
-  const { createUser, googleSignIn } = useContext(AuthContext);
+  const { createUser, googleSignIn, userProfileUpdate, verifyEmail } =
+    useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -29,6 +32,22 @@ const SignUp = () => {
         const user = result.user;
         console.log(user);
         form.reset();
+
+        //update user info
+        userProfileUpdate(userInfo.name)
+          .then(() => {
+            // Profile updated!
+            // ...
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+        //verify email
+        verifyEmail().then(() => {
+          toast.success("Please check your email");
+        });
+
         navigate("/");
       })
       .catch((error) => {
@@ -52,6 +71,7 @@ const SignUp = () => {
   const handleNameChange = (e) => {
     const name = e.target.value;
     console.log(name);
+    setUserInfo({ ...userInfo, name: name });
   };
   const handleEmailChange = (e) => {
     const email = e.target.value;
@@ -95,6 +115,10 @@ const SignUp = () => {
     }
   };
 
+  const handleChecked = (e) => {
+    setChecked(e.target.checked);
+  };
+
   return (
     <div className="">
       <form
@@ -102,7 +126,6 @@ const SignUp = () => {
         className="bg-slate-200 w-[400px] h-[700px] mx-auto my-20 rounded-md flex flex-col px-10  justify-between shadow-lg py-4"
       >
         <h2 className="text-3xl font-bold text-center">Register</h2>
-
         <label className="label">
           <span className="label-text mt-4 text-gray-600 font-semibold text-base">
             Your name
@@ -116,7 +139,6 @@ const SignUp = () => {
           onChange={handleNameChange}
           required
         />
-
         <label className="label">
           <span className="label-text mt-2 text-gray-600 font-semibold text-base">
             Your email
@@ -133,7 +155,6 @@ const SignUp = () => {
         <p className="text-red-600 text-sm font-semibold mt-1 ml-1">
           {errors.email}
         </p>
-
         <label className="label">
           <span className="label-text mt-2 text-gray-600 font-semibold text-base">
             Password
@@ -150,7 +171,6 @@ const SignUp = () => {
         <p className="text-red-600 text-sm font-semibold mt-1 ml-1">
           {errors.password}
         </p>
-
         <label className="label">
           <span className="label-text mt-2 text-gray-600 font-semibold text-base">
             Confirm password
@@ -168,7 +188,29 @@ const SignUp = () => {
           {errors.confirmPassword}
         </p>
 
-        <button className="bg-primary px-8 py-2 text-white uppercase font-semibold rounded-sm mt-8 mx-auto w-40">
+        <div className="form-control">
+          <label className="cursor-pointer label">
+            <input
+              onClick={handleChecked}
+              type="checkbox"
+              className="checkbox checkbox-primary rounded-full"
+            />
+            <p className="label-text mr-16 text-gray-400 font-semibold">
+              I agree to the{" "}
+              <Link
+                to="/termsandconditions"
+                className="link no-underline text-primary"
+              >
+                Terms & Conditions
+              </Link>
+            </p>
+          </label>
+        </div>
+        {}
+        <button
+          className="bg-primary px-8 py-2 text-white uppercase font-semibold rounded-sm mt-6 mx-auto w-40 disabled:opacity-75 "
+          disabled={!checked}
+        >
           Sign up
         </button>
         <p className="text-center mt-3">

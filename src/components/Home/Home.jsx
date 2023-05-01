@@ -18,9 +18,11 @@ const Home = () => {
             <button className="btn btn-primary text-white text-lg font-bold mr-3">
               Our courses
             </button>
-            <button className="btn bg-transparent border-4 text-white text-lg font-bold hover:bg-white hover:border-white hover:text-primary border-white ">
-              <Link to="/signup"> Sign up</Link>
-            </button>
+            <Link to="/signup">
+              <button className="btn bg-transparent border-4 text-white text-lg font-bold hover:bg-white hover:border-white hover:text-primary border-white ">
+                Sign up
+              </button>
+            </Link>
           </div>
         </div>
       </div>

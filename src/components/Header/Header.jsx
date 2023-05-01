@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
+import { ToastContainer, toast } from "react-toastify";
+import { FaUserAlt } from "react-icons/fa";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -8,12 +10,15 @@ const Header = () => {
   const handleLogOut = () => {
     logOut()
       .then(() => {
-        // Sign-out successful.
+        toast.success("Successfully logout");
+        // toast.warning("s");
       })
       .catch((error) => {
         // An error happened.
       });
   };
+
+  const handleUserProfile = () => {};
 
   return (
     <nav className="flex justify-between items-center px-20 py-7 bg-white sticky top-0 z-50">
@@ -23,7 +28,7 @@ const Header = () => {
           Edu<span className="text-primary">Center</span>
         </Link>
       </h1>
-      <div className="flex items-center gap-8 text-lg font-bold ">
+      <div className="flex items-center gap-8 text-lg font-semibold ">
         <label className="swap swap-rotate">
           <input type="checkbox" />
 
@@ -60,23 +65,30 @@ const Header = () => {
           <>
             <button
               onClick={handleLogOut}
-              className="bg-transparent border-2 border-primary  px-4 py-2 text-primary text-base  font-semibold rounded-md"
+              className="bg-primary border-2 border-primary  px-4 py-2 text-white text-base  font-semibold rounded-md"
             >
               Log out
             </button>
-            <div className="avatar">
-              <div className="w-12 rounded-full ">
-                <img alt="" src={user.photoURL} />
-              </div>
-            </div>
           </>
         ) : (
-          <button
-            onClick={handleLogOut}
-            className="bg-primary border-2 border-primary  px-4 py-2 text-white text-base  font-semibold rounded-md"
-          >
-            Log out
-          </button>
+          <Link to="/login">
+            <button className="bg-transparent border-2 border-primary  px-4 py-2 text-primary text-base  font-semibold rounded-md">
+              Login
+            </button>
+          </Link>
+        )}
+        {user?.photoURL ? (
+          <div onClick={handleUserProfile} className="avatar">
+            <div className="w-12 rounded-full ">
+              <Link to="/userprofile">
+                <img alt="" src={user.photoURL} />
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <Link to="/userprofile">
+            <FaUserAlt className="text-4xl rounded-full" />
+          </Link>
         )}
       </div>
     </nav>
