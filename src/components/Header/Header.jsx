@@ -21,7 +21,7 @@ const Header = () => {
   const handleUserProfile = () => {};
 
   return (
-    <nav className="flex justify-between items-center px-20 py-7 bg-white sticky top-0 z-50">
+    <nav className="flex justify-between items-center px-20 py-5 bg-white sticky top-0 z-50">
       <h1 className="text-4xl font-bold">
         <Link to="/">
           {" "}
@@ -78,17 +78,28 @@ const Header = () => {
           </Link>
         )}
         {user?.photoURL ? (
-          <div onClick={handleUserProfile} className="avatar">
-            <div className="w-12 rounded-full ">
-              <Link to="/userprofile">
-                <img alt="" src={user.photoURL} />
-              </Link>
+          <div className="tooltip  tooltip-bottom" data-tip={user?.displayName}>
+            <div onClick={handleUserProfile} className="avatar mt-2">
+              <div className="w-12 rounded-full ">
+                <Link className="" to="/userprofile">
+                  <img className="" alt="" src={user.photoURL} />
+                </Link>
+              </div>
             </div>
           </div>
         ) : (
-          <Link to="/userprofile">
-            <FaUserAlt className="text-4xl rounded-full" />
-          </Link>
+          <div className="tooltip  tooltip-bottom" data-tip={user?.displayName}>
+            <div onClick={handleUserProfile} className="avatar ">
+              <div className="w-12 rounded-full ">
+                <Link to="/userprofile">
+                  <FaUserAlt className="text-3xl mt-3 rounded-full" />
+                </Link>
+              </div>
+            </div>
+          </div>
+          // <Link to="/userprofile">
+          //   <FaUserAlt className="text-4xl rounded-full" />
+          // </Link>
         )}
       </div>
     </nav>

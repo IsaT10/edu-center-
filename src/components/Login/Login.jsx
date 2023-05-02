@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { toast } from "react-toastify";
@@ -9,6 +9,8 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  console.log(userInfo.email);
   const [errors, setErrors] = useState({
     email: "",
     password: "",
@@ -16,6 +18,9 @@ const Login = () => {
 
   const { logIn, googleSignIn, resetPassword } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  // console.log(from);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,9 +29,9 @@ const Login = () => {
     logIn(userInfo.email, userInfo.password)
       .then((result) => {
         const user = result.user;
+        navigate(from, { replace: true });
         console.log(user);
         form.reset();
-        navigate("/");
       })
       .catch((error) => {
         console.log(error);
@@ -75,18 +80,27 @@ const Login = () => {
 
   const handleEmailBlur = (e) => {
     const email = e.target.value;
-    setUserInfo({ ...userInfo, email: email });
+
+    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      setUserInfo({ ...userInfo, email: "" });
+    } else {
+      setUserInfo({ ...userInfo, email: email });
+    }
   };
 
   const handleResetPassword = () => {
     resetPassword(userInfo.email)
       .then(() => {
+        console.log(userInfo.email);
         toast.success("Password reset email sent");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorMessage);
+
+        console.log(userInfo.email);
+        console.log(errorMessage, errorCode);
+        toast.warning("Please enter a valid email");
       });
   };
 

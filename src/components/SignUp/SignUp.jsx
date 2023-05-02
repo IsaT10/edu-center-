@@ -94,6 +94,24 @@ const SignUp = () => {
         password: "Password must has at least 8 characters",
       });
       setUserInfo({ ...userInfo, password: "" });
+    } else if (!/(?=.*?[A-Z])/.test(password)) {
+      setErrors({
+        ...errors,
+        password: "At least one upper case",
+      });
+      setUserInfo({ ...userInfo, password: "" });
+    } else if (!/(?=.*?[0-9])/.test(password)) {
+      setErrors({
+        ...errors,
+        password: "At least one digit",
+      });
+      setUserInfo({ ...userInfo, password: "" });
+    } else if (!/(?=.*?[#?!@$%^&*-])/.test(password)) {
+      setErrors({
+        ...errors,
+        password: "At least one special character",
+      });
+      setUserInfo({ ...userInfo, password: "" });
     } else {
       setUserInfo({ ...userInfo, password: password });
       setErrors({ ...errors, password: "" });
