@@ -4,6 +4,9 @@ import SignUp from "../components/SignUp/SignUp";
 import TermsAndCondition from "../components/TermsAndCondition/TermsAndCondition";
 import UserProfile from "../components/UserProfile/UserProfile";
 import PrivateRoutes from "./PrivateRoutes";
+import SideBar from "../components/SideBar/SideBar";
+import CoursesLayout from "../layout/CoursesLayout";
+import CourseDetails from "../components/CourseDetails/CourseDetails";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Main } = require("../layout/Main");
@@ -18,10 +21,26 @@ export const router = createBrowserRouter([
     path: "/",
     element: <Main />,
     errorElement: <ErrorPage />,
+    loader: () => fetch("http://localhost:5000/courses"),
     children: [
       { path: "/", element: <Home /> },
       { path: "/home", element: <Home /> },
-      { path: "/courses", element: <Courses /> },
+      {
+        path: "/courses",
+        element: <CoursesLayout />,
+        errorElement: <ErrorPage />,
+        children: [
+          { path: "/courses", element: <Courses /> },
+          {
+            path: "/courses/:id",
+            element: <CourseDetails />,
+            loader: ({ params }) => {
+              console.log(params);
+              return fetch(`http://localhost:5000/courses/${params.id}`);
+            },
+          },
+        ],
+      },
       {
         path: "/blog",
         element: (
