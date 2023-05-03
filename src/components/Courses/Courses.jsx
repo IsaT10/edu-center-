@@ -13,9 +13,6 @@ const Courses = () => {
           <Card key={course.id} course={course} />
         ))}
       </div>
-      {/* <p className="text-5xl font-bold bg-primary px-12 py-12 mt-16 -ml-40 mr-40 -mb-28 text-white">
-        You can be your own guiding star with our help
-      </p> */}
     </div>
   );
 };

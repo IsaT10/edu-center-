@@ -1,8 +1,15 @@
 import React from "react";
+import { FaArrowRight } from "react-icons/fa";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const Card = ({ course }) => {
   const { id, courseName, thumbnail, premiumPrice, course_description } =
     course;
+
+  const navigate = useNavigate();
+  const handleReadMore = () => {
+    Navigate(`/courses/${id}`);
+  };
   return (
     <div className=" card card-compact bg-base-100 rounded-md h-[370px] shadow-xl ">
       <div className="w-72 mx-auto  mt-4 overflow-hidden ">
@@ -20,8 +27,14 @@ const Card = ({ course }) => {
         <p className="font-semibold text-gray-400">
           {course_description.slice(0, 70)}. . .
         </p>
-        <div className="card-actions justify-end">
-          <button className="font-bold text-primary ">Read more</button>
+        <div className="card-actions items-center  justify-end">
+          <Link
+            to={`/courses/${id}`}
+            className="font-bold flex gap-2 items-center text-primary "
+          >
+            {" "}
+            Read more <FaArrowRight className="mt-1" />
+          </Link>
         </div>
       </div>
     </div>

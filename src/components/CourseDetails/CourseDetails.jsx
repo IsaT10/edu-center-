@@ -1,15 +1,15 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 const CourseDetails = () => {
   const singleCourseData = useLoaderData();
-  const { premiumPrice, thumbnail, courseName } = singleCourseData;
+  const { id, premiumPrice, thumbnail, courseName } = singleCourseData;
   console.log(singleCourseData);
   return (
     <div className="col-span-6 mx-10">
       <div>
         <img
-          className="w-full h-[535p] object-cover rounded-md"
+          className="w-full h-[535px] object-cover rounded-md"
           src={thumbnail}
           alt=""
         />
@@ -17,7 +17,7 @@ const CourseDetails = () => {
           <p>{courseName}</p>
           <p>{premiumPrice}</p>
         </div>
-        <p className="text-lg text-gray-500">
+        <p className="text-lg mb-8 text-gray-500">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
           officia debitis illo placeat voluptas asperiores ut! Voluptatem
           cumque, quae commodi tempora esse sit perspiciatis non eos error!
@@ -31,9 +31,12 @@ const CourseDetails = () => {
           necessitatibus vel. Neque accusamus id asperiores minima obcaecati
           tempora iste.
         </p>
-        <button className="text-lg font-semibold uppercase bg-primary text-white px-4 py-2 my-4 rounded-md">
+        <Link
+          to={`/checkout/${id}`}
+          className="text-lg font-semibold uppercase bg-primary text-white px-5 py-3  rounded-md"
+        >
           Get premium access
-        </button>
+        </Link>
       </div>
     </div>
   );

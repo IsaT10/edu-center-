@@ -10,7 +10,7 @@ const Header = () => {
   const handleLogOut = () => {
     logOut()
       .then(() => {
-        toast.success("Successfully logout");
+        // toast.success("Successfully logout");
         // toast.warning("s");
       })
       .catch((error) => {
@@ -82,7 +82,7 @@ const Header = () => {
             <div onClick={handleUserProfile} className="avatar mt-2">
               <div className="w-12 rounded-full ">
                 <Link className="" to="/userprofile">
-                  <img className="" alt="" src={user.photoURL} />
+                  <img className=" " alt="" src={user.photoURL} />
                 </Link>
               </div>
             </div>
