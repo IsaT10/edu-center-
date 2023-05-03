@@ -7,13 +7,15 @@ const Courses = () => {
   const courses = useContext(CoursesContext);
   // console.log(courses);
   return (
-    <div className="col-span-6">
+    <div className="col-span-6 ">
       <div className="grid grid-cols-3 gap-6">
         {courses.map((course) => (
           <Card key={course.id} course={course} />
         ))}
       </div>
-      <p>You can be your own guiding star with our help</p>
+      {/* <p className="text-5xl font-bold bg-primary px-12 py-12 mt-16 -ml-40 mr-40 -mb-28 text-white">
+        You can be your own guiding star with our help
+      </p> */}
     </div>
   );
 };

@@ -4,7 +4,7 @@ const Card = ({ course }) => {
   const { id, courseName, thumbnail, premiumPrice, course_description } =
     course;
   return (
-    <div className=" card card-compact rounded-md h-[370px] shadow-xl ">
+    <div className=" card card-compact bg-base-100 rounded-md h-[370px] shadow-xl ">
       <div className="w-72 mx-auto  mt-4 overflow-hidden ">
         <img
           className=" h-40 w-72 object-cover hover:scale-[1.1]  duration-200 "
@@ -21,7 +21,7 @@ const Card = ({ course }) => {
           {course_description.slice(0, 70)}. . .
         </p>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">Read more</button>
+          <button className="font-bold text-primary ">Read more</button>
         </div>
       </div>
     </div>
